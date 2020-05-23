@@ -11,7 +11,7 @@ import com.acmerobotics.roadrunner.trajectory.constraints.MecanumConstraints
 
 object TrajectoryGen {
     private val constraints = MecanumConstraints(
-        DriveConstraints(62.5, 70.0, 0.0,
+        DriveConstraints(75.0, 90.0, 0.0,
             220.0.toRadians, 320.0.toRadians, 0.0),
         13.5,13.5)
     private val max_constraints = MecanumConstraints(
@@ -29,9 +29,9 @@ object TrajectoryGen {
         //return testSplineTurn()
         //return testSplineTurn2()
 
-        return testLineToIntepolators()
+//        return testLineToIntepolators()
 
-        //return buildSpline6StonesTrajectory()
+        return buildSpline6StonesTrajectory()
 
 //        return buildSpline5StonesTrajectory()
 
@@ -59,8 +59,8 @@ object TrajectoryGen {
 
         builder1
             .splineTo(Pose2d(0.0, -41.5, 0.0.toRadians))
-            .splineTo(Pose2d(30.0, -40.75,0.0.toRadians))
-            .splineToConstantHeading(Pose2d(60.0, -40.0, 0.0.toRadians))
+            .splineToLinearHeading(Pose2d(30.0, -40.5,0.0.toRadians), 180.0.toRadians)
+            .splineToLinearHeading(Pose2d(60.0, -40.0, 0.0.toRadians), 180.0.toRadians)
 //            .splineToConstantHeading(Pose2d(30.0, -40.5,0.0))
 //            .splineToConstantHeading(Pose2d(49.0,-40.5, Math.PI + 180.0.toRadians))
 //           .lineToConstantHeading(Vector2d(0.0,-41.0))
@@ -96,8 +96,7 @@ object TrajectoryGen {
         builder1
 
             .splineTo(Pose2d(0.0, -41.0, 0.0.toRadians))
-            .splineTo(Pose2d(30.0, -40.5, 0.0.toRadians))
-            .splineTo(Pose2d(49.0,-40.5, Math.PI + 180.0.toRadians))
+            .splineTo(Pose2d(62.0,-40.5, Math.PI + 180.0.toRadians))
 //           .lineToConstantHeading(Vector2d(0.0,-41.0))
 //            .lineToConstantHeading(Vector2d(62.0,-41.0))
 //            .addMarker { println("release stone 1") }
@@ -105,62 +104,62 @@ object TrajectoryGen {
         // 2. place first stone
         list.add(builder1.build())
 
-        builder1 = TrajectoryBuilder(Pose2d(62.0, -39.0, 178.0.toRadians),180.0.toRadians, constraints)
+        builder1 = TrajectoryBuilder(Pose2d(62.0, -40.5, 178.0.toRadians),180.0.toRadians, constraints)
 
         builder1
             //.reverse()
-            .splineToLinearHeading(Pose2d(-35.0,-40.0,  180.0.toRadians), 180.0.toRadians)
+            .splineToLinearHeading(Pose2d(-35.0,-40.5,  180.0.toRadians), 180.0.toRadians)
             //.strafeTo(Vector2d(-35.0,-35.0))
 //            .addMarker { println("grab stone 2") }
 
         // 3. get second stone
         list.add(builder1.build())
 
-        builder1 = TrajectoryBuilder(Pose2d(-35.0, -40.0, 0.0.toRadians),179.0.toRadians, constraints)
+        builder1 = TrajectoryBuilder(Pose2d(-35.0, -40.5, 0.0.toRadians),179.0.toRadians, constraints)
         builder1
-            .splineToLinearHeading(Pose2d(57.0,-38.0, 179.0.toRadians + 180.0.toRadians), 180.0.toRadians)
+            .splineToLinearHeading(Pose2d(57.0,-40.0, 179.0.toRadians + 180.0.toRadians), 180.0.toRadians)
 //            .addMarker { println("release stone 2") }
 
         // 4. place second stone
         list.add(builder1.build())
 
-        builder1 = TrajectoryBuilder(Pose2d(57.0, -38.0, 180.0.toRadians), 180.0.toRadians, constraints)
+        builder1 = TrajectoryBuilder(Pose2d(57.0, -40.0, 180.0.toRadians), 180.0.toRadians, constraints)
         builder1
-            .splineToConstantHeading(Pose2d(-18.0,-40.0, 180.0.toRadians))
+            .splineToConstantHeading(Pose2d(-18.0,-40.5, 180.0.toRadians))
 //            .addMarker { println("grab stone 3") }
 
         // 5. get 3rd stone
         list.add(builder1.build())
 
-        builder1 = TrajectoryBuilder(Pose2d(-18.0, -40.0, 0.0.toRadians),  180.0.toRadians,constraints)
+        builder1 = TrajectoryBuilder(Pose2d(-18.0, -40.5, 0.0.toRadians),  180.0.toRadians,constraints)
         builder1
             //.strafeTo(Vector2d(-18.0,-38.0))
-            .splineToConstantHeading(Pose2d(52.0,-38.0, 0.0.toRadians))
+            .splineToConstantHeading(Pose2d(52.0,-40.0, 0.0.toRadians))
  //           .addMarker { println("release stone 3") }
 
         // 6. place 3rd stone
         list.add(builder1.build())
 
-        builder1 = TrajectoryBuilder(Pose2d(52.0, -38.0, 180.0.toRadians), 180.0.toRadians, constraints)
+        builder1 = TrajectoryBuilder(Pose2d(52.0, -40.0, 180.0.toRadians), 180.0.toRadians, constraints)
         builder1
-            .splineToConstantHeading(Pose2d(-27.0,-40.0, 180.0.toRadians))
+            .splineToConstantHeading(Pose2d(-27.0,-40.5, 180.0.toRadians))
             //.strafeTo(Vector2d(-27.0,-35.0))
  //           .addMarker { println("grab stone 4") }
 
         // 7. get 4th stone
         list.add(builder1.build())
 
-        builder1 = TrajectoryBuilder(Pose2d(-27.0, -40.0, 0.0.toRadians),  180.0.toRadians,constraints)
+        builder1 = TrajectoryBuilder(Pose2d(-27.0, -40.5, 0.0.toRadians),  180.0.toRadians,constraints)
         builder1
-            .splineTo(Pose2d(47.0, -38.0, 0.0.toRadians))
+            .splineTo(Pose2d(47.0, -40.0, 0.0.toRadians))
 //            .addMarker {println("release stone 4 ...")}
 
         // 8. place 4th stone
         list.add(builder1.build())
 
-        builder1 = TrajectoryBuilder(Pose2d(47.0, -38.0, 180.0.toRadians), 180.0.toRadians, constraints)
+        builder1 = TrajectoryBuilder(Pose2d(47.0, -40.0, 180.0.toRadians), 180.0.toRadians, constraints)
         builder1
-            .splineTo(Pose2d(-43.0, -40.0, 180.0.toRadians ))
+            .splineTo(Pose2d(-43.0, -40.5, 180.0.toRadians ))
             //.strafeTo(Vector2d(-43.0,-35.0))
 //            .addMarker {println("grab stone 5 ...")}
 
@@ -170,7 +169,7 @@ object TrajectoryGen {
         builder1 = TrajectoryBuilder(Pose2d(-43.0, -40.0, 0.0.toRadians),  180.0.toRadians,constraints)
         builder1
             //.strafeTo(Vector2d(-43.0, -39.0))
-            .splineTo(Pose2d(55.0,-37.0, (180.0+180.0).toRadians))
+            .splineTo(Pose2d(51.0,-40.0, (180.0+180.0).toRadians))
 //            .splineTo(Pose2d(56.5, -37.0 - 1.5, (90.0+180.0).toRadians))
 //            .forward(5.5)
             //.splineTo(Pose2d(53.0,-45.5, 270.0.toRadians))
@@ -180,39 +179,39 @@ object TrajectoryGen {
         //.lineTo(Vector2d(55.0, -31.0))
 
         list.add(builder1.build())
-//
-//        builder1 = TrajectoryBuilder(Pose2d(55.0, -40.0, 180.0.toRadians), 180.0.toRadians, constraints)
-//        builder1
-//            .splineTo(Pose2d(-51.0, -40.0, 180.0.toRadians ))
-//            //.strafeTo(Vector2d(-43.0,-35.0))
-//            .addMarker {println("grab stone 6 ...")}
-//
-//        // 9. grab 6th stone
-//        list.add(builder1.build())
-//
-//        builder1 = TrajectoryBuilder(Pose2d(-51.0, -40.0, 0.0.toRadians),  180.0.toRadians,constraints)
-//        builder1
-//            //.strafeTo(Vector2d(-43.0, -39.0))
-//            .splineToConstantHeading(Pose2d(55.0,-36.0, (180.0+180.0).toRadians))
-//            .addMarker {println("release stone 5 ...")}
-//
-//        list.add(builder1.build())
 
-        builder1 = TrajectoryBuilder( Pose2d(55.0, -37.0, 0.0), Math.PI, constraints)
-        builder1.splineTo(Pose2d(56.5, -36.0-1.5, (90.0+180.0).toRadians))
+        builder1 = TrajectoryBuilder(Pose2d(51.0, -40.0, 180.0.toRadians), 180.0.toRadians, constraints)
+        builder1
+            .splineTo(Pose2d(-51.0, -40.5, 180.0.toRadians ))
+            //.strafeTo(Vector2d(-43.0,-35.0))
+            //.addMarker {println("grab stone 6 ...")}
+
+        // 9. grab 6th stone
+        list.add(builder1.build())
+
+        builder1 = TrajectoryBuilder(Pose2d(-51.0, -40.5, 0.0.toRadians),  180.0.toRadians,constraints)
+        builder1
+            //.strafeTo(Vector2d(-43.0, -39.0))
+            .splineToConstantHeading(Pose2d(55.0,-38.5, (180.0+180.0).toRadians))
+            //.addMarker {println("release stone 5 ...")}
+
+        list.add(builder1.build())
+
+        builder1 = TrajectoryBuilder( Pose2d(55.0, -38.5, 0.0), Math.PI, constraints)
+        builder1.splineTo(Pose2d(56.5, -38.5-1.5, (90.0+180.0).toRadians))
 
         list.add(builder1.build())
 
 
-        builder1 = TrajectoryBuilder( Pose2d(56.5, -37.5, 90.0), Math.PI, constraints)
+        builder1 = TrajectoryBuilder( Pose2d(56.5, -40.0, 90.0.toRadians), Math.PI, constraints)
         builder1.lineToLinearHeading(Vector2d(56.5, -30.0), 90.0.toRadians)
         list.add(builder1.build())
 
 
         builder1 = TrajectoryBuilder(Pose2d(56.5, -30.0, 270.0.toRadians),  90.0.toRadians,constraints)
         builder1
-            .splineTo(Pose2d(50.0, -52.0, 180.0.toRadians))
-            .splineTo( Pose2d(5.0, -40.0, 180.0.toRadians))
+            .splineTo(Pose2d(35.0, -56.0, 180.0.toRadians))
+            .splineTo( Pose2d(0.0, -40.0, 180.0.toRadians))
 
         list.add(builder1.build())
 
